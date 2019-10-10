@@ -17,7 +17,7 @@ class HighwayinfoSpider(scrapy.Spider):
         start_urls = []
         for u in urllist:
             #格式化数据
-            uri=u.strip()[1:-1]
+            uri=u[1:-2].strip()
             print(uri)
             yield scrapy.Request(url='http://shike.gaotie.cn/checi.asp?checi='+uri, callback=self.parse)
 
@@ -61,23 +61,28 @@ class HighwayinfoSpider(scrapy.Spider):
             stationTable = div_b_all.find_all('table')[3]
             tr_station = stationTable.find_all("tr")
             for index,tr in enumerate(tr_station):
+                try:
                 #除第一行表头外，每行为一个站点信息
-                if index != 0 :
-                    td_station=tr.find_all('td')
-                    itemStation = StationItem()
+                    if index != 0 :
+                        td_station=tr.find_all('td')
+                        itemStation = StationItem()
 
-                    itemStation['name'] = td_station[1].string
-                    itemStation['inTime'] = td_station[2].string
-                    itemStation['outTime'] = td_station[3].string
-                    itemStation['stayTime'] = td_station[4].string
-                    itemStation['dayNum'] = td_station[5].string
-                    itemStation['overTime'] = td_station[6].string
-                    itemStation['length'] = td_station[7].string
-                    itemStation['seatNum'] = td_station[8].string.replace("\n", "")
-                    itemStation['berthNum'] = td_station[9].string.replace("\n", "")
-                    itemStation['sortBerthNum'] = td_station[10].string.replace("\n", "")
+                        itemStation['name'] = td_station[1].string
+                        itemStation['inTime'] = td_station[2].string
+                        itemStation['outTime'] = td_station[3].string
+                        itemStation['stayTime'] = td_station[4].string
+                        itemStation['dayNum'] = td_station[5].string
+                        itemStation['overTime'] = td_station[6].string
+                        itemStation['length'] = td_station[7].string
+                        itemStation['seatNum'] = td_station[8].string.replace("\n", "")
+                        itemStation['berthNum'] = td_station[9].string.replace("\n", "") if td_station[9].string is not None else ''
+                        itemStation['sortBerthNum'] = td_station[10].string.replace("\n", "")
 
-                    stationList.append(itemStation)
+                        stationList.append(itemStation)
+                except Exception as e:
+                    print('exception:',e);
+
+
 
             item['stationList'] = stationList
 
