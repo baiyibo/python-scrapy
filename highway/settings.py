@@ -14,6 +14,7 @@ BOT_NAME = 'highway'
 SPIDER_MODULES = ['highway.spiders']
 NEWSPIDER_MODULE = 'highway.spiders'
 
+COMMANDS_MODULE = 'highway.commands'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'highway (+http://www.yourdomain.com)'

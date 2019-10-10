@@ -1,4 +1,4 @@
 # -*- coding:utf-8 -*-
 from scrapy.cmdline import execute
 
-execute(['scrapy', 'crawl', 'highwayinfo'])
+execute('scrapy crawlall'.split())
