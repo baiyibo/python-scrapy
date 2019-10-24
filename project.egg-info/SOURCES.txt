@@ -1,0 +1,15 @@
+setup.py
+highway/__init__.py
+highway/items.py
+highway/middlewares.py
+highway/pipelines.py
+highway/settings.py
+highway/commands/__init__.py
+highway/commands/crawlall.py
+highway/spiders/__init__.py
+highway/spiders/highwayinfo.py
+project.egg-info/PKG-INFO
+project.egg-info/SOURCES.txt
+project.egg-info/dependency_links.txt
+project.egg-info/entry_points.txt
+project.egg-info/top_level.txt

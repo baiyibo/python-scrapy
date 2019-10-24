@@ -7,6 +7,9 @@
 import json
 
 from scrapy.exporters import JsonItemExporter
+from  pymongo import MongoClient
+
+from highway.items import HighwayItem
 
 
 class HighwayPipeline(object):
@@ -29,3 +32,28 @@ class HighwayPipeline(object):
             self.exporter.finish_exporting()
             self.file.close()
             pass
+
+
+class MongodbPipeline(object):
+    # 连接数据库
+        def open_spider(self, spider):
+            db_uri = spider.settings.get('MONGODB_URI', 'mongodb://host:port')
+            db_name = spider.settings.get('MONGODB_DB_NAME', '所要连接数据库名称')
+            self.db_client = MongoClient('mongodb://账户名:密码@host:port')
+            self.db = self.db_client[db_name]
+            # 关闭数据库
+
+        def close_spider(self, spider):
+            self.db_client.close()
+
+        # 插入数据
+        def process_item(self, item, spider):
+            self.insert_db(item)
+
+            return item
+
+        def insert_db(self, item):
+            if isinstance(item, HighwayItem):
+                item = dict(item)  # 将一项数据转化为字典格式
+            # 向集合artdb中插入数据
+            self.db.artdb.insert_one(item)
