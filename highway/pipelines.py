@@ -37,9 +37,9 @@ class HighwayPipeline(object):
 class MongodbPipeline(object):
     # 连接数据库
         def open_spider(self, spider):
-            db_uri = spider.settings.get('MONGODB_URI', 'mongodb://host:port')
-            db_name = spider.settings.get('MONGODB_DB_NAME', '所要连接数据库名称')
-            self.db_client = MongoClient('mongodb://账户名:密码@host:port')
+            db_uri = spider.settings.get('MONGODB_URI', 'mongodb://localhost:27017')
+            db_name = spider.settings.get('MONGODB_DB_NAME', 'test')
+            self.db_client = MongoClient('mongodb://localhost:27017')
             self.db = self.db_client[db_name]
             # 关闭数据库
 

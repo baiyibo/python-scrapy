@@ -70,7 +70,7 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
 'highway.pipelines.MongodbPipeline': 100,
-'highway.pipelines.HighwayPipeline': 300,
+# 'highway.pipelines.HighwayPipeline': 300,
 }
 
 BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
